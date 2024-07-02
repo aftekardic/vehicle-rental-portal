@@ -47,7 +47,7 @@ const Layout = ({}) => {
         <Toolbar />
         <Box sx={{ flexGrow: 1 }}>
           <List>
-            <ListItem button component={RouterLink} to="/home">
+            <ListItem button component={RouterLink} to="/">
               <ListItemIcon>
                 <HomeIcon color="#333" />
               </ListItemIcon>
@@ -59,7 +59,7 @@ const Layout = ({}) => {
               </ListItemIcon>
               <ListItemText primary="Vehicles" />
             </ListItem>
-            <ListItem button component={RouterLink} to="/reservation">
+            <ListItem button component={RouterLink} to="/reservations">
               <ListItemIcon>
                 <EventIcon color="#333" />
               </ListItemIcon>
@@ -92,11 +92,6 @@ const Layout = ({}) => {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h6" component="div">
-              Welcome to Car Rental Portal
-            </Typography>
-          </Grid>
           <Grid item xs={12}>
             <Outlet />
           </Grid>
