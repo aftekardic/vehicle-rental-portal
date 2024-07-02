@@ -23,26 +23,26 @@ import java.util.List;
 public class VehicleEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
-    CompanyEntity company;
+    private CompanyEntity company;
 
     @Column(name = "type")
-    String type; // binek, arazi, ticari, vb.
+    private String type; // binek, arazi, ticari, vb.
 
     @Column(name = "daily_price")
-    BigDecimal dailyPrice;
+    private BigDecimal dailyPrice;
 
     @ElementCollection
     @CollectionTable(name = "price_validity_dates", joinColumns = @JoinColumn(name = "vehicle_id"))
     @Column(name = "date")
-    List<LocalDate> priceValidityDates;
+    private List<LocalDate> priceValidityDates;
 
     @ElementCollection
     @CollectionTable(name = "availability_dates", joinColumns = @JoinColumn(name = "vehicle_id"))
     @Column(name = "date")
-    List<LocalDate> availabilityDates;
+    private List<LocalDate> availabilityDates;
 
     @ElementCollection
     @CollectionTable(name = "additional_services", joinColumns = @JoinColumn(name = "vehicle_id"))
     @Column(name = "service")
-    List<String> additionalServices;
+    private List<String> additionalServices;
 }

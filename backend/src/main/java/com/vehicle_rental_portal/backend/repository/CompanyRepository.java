@@ -1,5 +1,9 @@
 package com.vehicle_rental_portal.backend.repository;
 
-public class CompanyRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.vehicle_rental_portal.backend.entity.CompanyEntity;
+
+public interface CompanyRepository extends JpaRepository<CompanyEntity, Long> {
 
 }

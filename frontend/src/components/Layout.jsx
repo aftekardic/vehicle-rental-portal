@@ -11,12 +11,14 @@ import {
   Typography,
   IconButton,
   ListItemIcon,
+  Link,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import EventIcon from "@mui/icons-material/Event";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 
 const Layout = () => {
   const handleSignOut = () => {
@@ -36,9 +38,23 @@ const Layout = () => {
         }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
             Car Rental Portal
           </Typography>
+          <Link
+            component={RouterLink}
+            to="/login"
+            sx={{
+              color: "inherit",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <IconButton color="inherit">
+              <LoginIcon />
+            </IconButton>
+          </Link>
         </Toolbar>
       </AppBar>
 
@@ -83,7 +99,7 @@ const Layout = () => {
           }}
         >
           <IconButton onClick={handleSignOut} sx={{ color: "#333" }}>
-            <ExitToAppIcon />
+            <LogoutIcon />
           </IconButton>
         </Box>
       </Drawer>

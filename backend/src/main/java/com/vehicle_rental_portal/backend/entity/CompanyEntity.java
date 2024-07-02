@@ -16,11 +16,14 @@ import java.util.List;
 @Table(name = "companies")
 public class CompanyEntity extends BaseEntity {
     @Column(nullable = false)
-    String name;
+    private String name;
 
     @Column(nullable = false)
-    String city;
+    private String city;
+
+    @Column(nullable = false)
+    private String email;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-    List<VehicleEntity> vehicles;
+    private List<VehicleEntity> vehicles;
 }
