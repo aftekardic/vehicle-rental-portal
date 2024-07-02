@@ -5,8 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.7.18</version> <!-- Spring Boot sürümünü güncelledim -->
 	</parent>
 	<groupId>com.vehicle-rental-portal</groupId>
 	<artifactId>backend</artifactId>
@@ -69,6 +68,7 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Hibernate dependencies are managed by Spring Boot -->
 	</dependencies>
 
 	<build>

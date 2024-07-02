@@ -4,7 +4,6 @@ import {
   AppBar,
   Box,
   Drawer,
-  Grid,
   List,
   ListItem,
   ListItemText,
@@ -24,8 +23,9 @@ const Layout = () => {
     // Implement sign out logic here
     console.log("Signing out...");
   };
+
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {/* AppBar */}
       <AppBar
         position="fixed"
@@ -49,25 +49,25 @@ const Layout = () => {
           <List>
             <ListItem button component={RouterLink} to="/">
               <ListItemIcon>
-                <HomeIcon color="#333" />
+                <HomeIcon sx={{ color: "#333" }} />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
             <ListItem button component={RouterLink} to="/vehicles">
               <ListItemIcon>
-                <DirectionsCarIcon color="#333" />
+                <DirectionsCarIcon sx={{ color: "#333" }} />
               </ListItemIcon>
               <ListItemText primary="Vehicles" />
             </ListItem>
             <ListItem button component={RouterLink} to="/reservations">
               <ListItemIcon>
-                <EventIcon color="#333" />
+                <EventIcon sx={{ color: "#333" }} />
               </ListItemIcon>
               <ListItemText primary="Reservation" />
             </ListItem>
             <ListItem button component={RouterLink} to="/profile">
               <ListItemIcon>
-                <AccountCircleIcon color="#333" />
+                <AccountCircleIcon sx={{ color: "#333" }} />
               </ListItemIcon>
               <ListItemText primary="Profile" />
             </ListItem>
@@ -82,17 +82,41 @@ const Layout = () => {
             marginBottom: 2,
           }}
         >
-          <IconButton onClick={handleSignOut} color="#333">
+          <IconButton onClick={handleSignOut} sx={{ color: "#333" }}>
             <ExitToAppIcon />
           </IconButton>
         </Box>
       </Drawer>
 
       {/* Main Content */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Grid item xs={12}>
-          <Outlet />
-        </Grid>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          paddingTop: 12,
+          paddingRight: 6,
+          paddingBottom: 12,
+          paddingLeft: 28,
+        }}
+      >
+        <Outlet />
+      </Box>
+
+      {/* Footer */}
+      <Box
+        component="footer"
+        sx={{
+          p: 2,
+          mt: "auto",
+          backgroundColor: "#333",
+          color: "#fff",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="body2">
+          &copy; {new Date().getFullYear()} Car Rental Portal. All rights
+          reserved.
+        </Typography>
       </Box>
     </Box>
   );
