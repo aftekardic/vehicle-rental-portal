@@ -19,7 +19,7 @@ import EventIcon from "@mui/icons-material/Event";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
-const Layout = ({}) => {
+const Layout = () => {
   const handleSignOut = () => {
     // Implement sign out logic here
     console.log("Signing out...");
@@ -90,11 +90,8 @@ const Layout = ({}) => {
 
       {/* Main Content */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Outlet />
-          </Grid>
+        <Grid item xs={12}>
+          <Outlet />
         </Grid>
       </Box>
     </Box>
