@@ -17,8 +17,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import com.vehicle_rental_portal.backend.exception.AccessDeniedHandlerException;
-import com.vehicle_rental_portal.backend.exception.AuthenticationEntryPointException;
 import com.vehicle_rental_portal.backend.util.KeycloakJwtRolesConverterUtil;
 
 @Configuration
@@ -31,22 +29,19 @@ public class WebSecurityConfiguration {
     private String tokenIssuerUrl;
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationEntryPointException entryPoint,
-            AccessDeniedHandlerException accessDenied) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         DelegatingJwtGrantedAuthoritiesConverter authoritiesConverter = new DelegatingJwtGrantedAuthoritiesConverter(
                 new JwtGrantedAuthoritiesConverter(), new KeycloakJwtRolesConverterUtil(kcClientId));
 
         http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeRequests(authorize -> authorize
                         .antMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated())
-                .exceptionHandling(exceptionHandling -> exceptionHandling
-                        .authenticationEntryPoint(entryPoint)
-                        .accessDeniedHandler(accessDenied))
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(
                                 jwtAuthenticationConverter(authoritiesConverter))));
+
         return http.build();
     }
 
