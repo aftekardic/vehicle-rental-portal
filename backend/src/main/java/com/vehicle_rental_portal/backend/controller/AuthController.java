@@ -21,7 +21,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping(value = "/sign-in")
+    @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequest, HttpServletRequest servletRequest,
             HttpServletResponse servletResponse) {
         return authService.login(loginRequest, servletRequest, servletResponse);
