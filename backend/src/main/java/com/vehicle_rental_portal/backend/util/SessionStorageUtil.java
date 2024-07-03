@@ -3,6 +3,9 @@ package com.vehicle_rental_portal.backend.util;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class SessionStorageUtil {
     private final Map<String, Map<String, String>> storage = new ConcurrentHashMap<>();
 

@@ -18,7 +18,15 @@ function UserRegistirationPage() {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Full Name"
+              label="First Name"
+              variant="outlined"
+              required
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Last Name"
               variant="outlined"
               required
             />

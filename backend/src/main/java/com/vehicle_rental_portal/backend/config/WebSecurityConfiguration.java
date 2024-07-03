@@ -3,6 +3,7 @@ package com.vehicle_rental_portal.backend.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
@@ -38,7 +39,7 @@ public class WebSecurityConfiguration {
 
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers().hasAnyRole()
+                        .antMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .authenticationEntryPoint(entryPoint)
@@ -59,13 +60,6 @@ public class WebSecurityConfiguration {
         return new GrantedAuthorityDefaults("");
     }
 
-    private JwtAuthenticationConverter jwtAuthenticationConverter(
-            DelegatingJwtGrantedAuthoritiesConverter authoritiesConverter) {
-        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-        converter.setJwtGrantedAuthoritiesConverter(authoritiesConverter);
-        return converter;
-    }
-
     @Bean
     CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
@@ -78,5 +72,12 @@ public class WebSecurityConfiguration {
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);
+    }
+
+    private JwtAuthenticationConverter jwtAuthenticationConverter(
+            DelegatingJwtGrantedAuthoritiesConverter authoritiesConverter) {
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(authoritiesConverter);
+        return converter;
     }
 }

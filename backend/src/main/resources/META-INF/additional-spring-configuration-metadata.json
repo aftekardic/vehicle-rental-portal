@@ -44,6 +44,16 @@
       "name": "keycloak.all-users-url",
       "type": "java.lang.String",
       "description": "A description for 'keycloak.all-users-url'"
+    },
+    {
+      "name": "keycloak.registration-url",
+      "type": "java.lang.String",
+      "description": "A description for 'keycloak.registration-url'"
+    },
+    {
+      "name": "keycloak.admin-token-url",
+      "type": "java.lang.String",
+      "description": "A description for 'keycloak.admin-token-url'"
     }
   ]
 }
