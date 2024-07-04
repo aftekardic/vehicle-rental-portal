@@ -1,4 +1,4 @@
-package com.vehicle_rental_portal.backend.dto.ReservationDtos;
+package com.vehicle_rental_portal.backend.dto.VehicleDtos;
 
 import java.time.LocalDate;
 
@@ -11,15 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationDto {
-
-    private Long user_id;
-
-    private Long vehicle_id;
-
+public class VehicleSpecificRequestDto {
+    private String city;
+    private String type;
     private LocalDate startDate;
-
     private LocalDate endDate;
 
-    private String status;
 }

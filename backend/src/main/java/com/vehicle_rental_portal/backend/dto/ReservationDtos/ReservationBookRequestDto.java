@@ -11,15 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationDto {
-
-    private Long user_id;
-
+public class ReservationBookRequestDto {
     private Long vehicle_id;
-
-    private LocalDate startDate;
-
-    private LocalDate endDate;
-
-    private String status;
+    private String user_email;
+    private LocalDate start_date;
+    private LocalDate end_date;
 }

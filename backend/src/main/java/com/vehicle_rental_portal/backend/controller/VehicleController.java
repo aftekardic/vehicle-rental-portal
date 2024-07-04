@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vehicle_rental_portal.backend.dto.VehicleDtos.VehicleDto;
+import com.vehicle_rental_portal.backend.dto.VehicleDtos.VehicleSpecificRequestDto;
 import com.vehicle_rental_portal.backend.service.VehicleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class VehicleController {
     @GetMapping("/all")
     public ResponseEntity<?> getAllVehicles(@RequestParam String param) {
         return null;
+    }
+
+    @PostMapping("/specific-all")
+    public ResponseEntity<?> getAllSpecificVehicles(@RequestBody VehicleSpecificRequestDto vehicleSpecificRequestDto) {
+        return vehicleService.allSpecificVehicles(vehicleSpecificRequestDto);
     }
 
     @GetMapping("/company-all")
