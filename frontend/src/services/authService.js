@@ -19,7 +19,7 @@ const renewToken = async () => {
       const { data } = await api.post("/auth/refresh-token", { refreshToken });
       localStorage.setItem("accessToken", data.accessToken);
     } else {
-      throw new Error("No refresh token available");
+      window.location.href = "/";
     }
   } catch (error) {
     console.error("Token renewal failed", error);
@@ -28,7 +28,7 @@ const renewToken = async () => {
     localStorage.removeItem("userRoles");
     localStorage.removeItem("userEmail");
 
-    window.location.href = "/sign-in";
+    window.location.href = "/login";
   }
 };
 

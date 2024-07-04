@@ -13,10 +13,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VehicleDto {
-    private String companyEmail;
+public class VehicleResponseDto {
+    private Long id;
+    private Long companyId;
     private String type;
     private BigDecimal dailyPrice;
     private List<LocalDate> availabilityDates;
     private List<String> additionalServices;
+    private String status;
+    private String message;
 }

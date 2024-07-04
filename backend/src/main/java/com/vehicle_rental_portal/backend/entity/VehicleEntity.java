@@ -32,11 +32,6 @@ public class VehicleEntity extends BaseEntity {
     private BigDecimal dailyPrice;
 
     @ElementCollection
-    @CollectionTable(name = "price_validity_dates", joinColumns = @JoinColumn(name = "vehicle_id"))
-    @Column(name = "date")
-    private List<LocalDate> priceValidityDates;
-
-    @ElementCollection
     @CollectionTable(name = "availability_dates", joinColumns = @JoinColumn(name = "vehicle_id"))
     @Column(name = "date")
     private List<LocalDate> availabilityDates;

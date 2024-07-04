@@ -37,6 +37,7 @@ public class WebSecurityConfiguration {
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorize -> authorize
                         .antMatchers("/auth/**").permitAll()
+                        .antMatchers("/vehicle/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(

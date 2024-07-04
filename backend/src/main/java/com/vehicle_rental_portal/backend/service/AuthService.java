@@ -117,7 +117,7 @@ public class AuthService {
         public ResponseEntity<?> registerAsCompany(RegisterRequestAsCompanyDto registerRequest) {
                 String adminAccessToken = keycloakUtil.getAdminAccessToken(GRANT_TYPE_PASSWORD, restTemplate,
                                 kcAdminUrl);
-                System.out.println(adminAccessToken);
+
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 headers.set("Authorization", "Bearer " + adminAccessToken);

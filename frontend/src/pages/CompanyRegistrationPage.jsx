@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography, Grid } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { cities } from "../services/GlobalVars";
@@ -31,10 +31,12 @@ function CompanyRegistrationPage() {
         },
       });
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data);
     }
   };
+  useEffect(() => {
+    localStorage.getItem("accessToken") !== null && navigate("/");
+  }, [navigate]);
 
   return (
     <Box sx={{ flexGrow: 1, p: 3 }}>

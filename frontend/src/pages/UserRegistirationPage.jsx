@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography, Grid } from "@mui/material";
 import api from "../services/api";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function UserRegistirationPage() {
+  const navigate = useNavigate();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,7 +22,6 @@ function UserRegistirationPage() {
       password: password,
     };
 
-    console.log(formData);
     try {
       const response = await api.post("/auth/register-user", formData);
       toast.success(response.data, {
@@ -31,6 +33,10 @@ function UserRegistirationPage() {
       toast.error(error.response.data);
     }
   };
+
+  useEffect(() => {
+    localStorage.getItem("accessToken") !== null && navigate("/");
+  }, [navigate]);
 
   return (
     <Box sx={{ flexGrow: 1, p: 3 }}>

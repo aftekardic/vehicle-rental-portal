@@ -3,8 +3,11 @@ import { Box, Button, Typography, Grid, TextField } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { userPermissionRoles } from "../services/permissionService";
+import { cities } from "../services/GlobalVars";
+import Autocomplete from "@mui/material/Autocomplete";
 
 function HomePage() {
+  const [city, setCity] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
@@ -22,7 +25,27 @@ function HomePage() {
           <Box sx={{ my: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
-                <TextField fullWidth label="City" variant="outlined" />
+                <Autocomplete
+                  value={city}
+                  onChange={(event, newValue) => {
+                    setCity(newValue);
+                  }}
+                  options={cities}
+                  renderInput={(params) => (
+                    <TextField {...params} label="City" variant="outlined" />
+                  )}
+                  filterOptions={(options, params) => {
+                    const filtered = options.filter(
+                      (option) =>
+                        option
+                          .toLowerCase()
+                          .indexOf(params.inputValue.toLowerCase()) !== -1
+                    );
+
+                    return filtered;
+                  }}
+                  getOptionLabel={(option) => option}
+                />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField fullWidth label="Car Type" variant="outlined" />
@@ -100,7 +123,7 @@ function HomePage() {
           </Grid>
         )}
 
-        {userPermissionRoles(["USER", "TEST"]) && (
+        {userPermissionRoles(["COMPANY", "USER", "TEST"]) && (
           <Grid item xs={12} sm={6}>
             <Button
               component={RouterLink}

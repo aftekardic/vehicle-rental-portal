@@ -19,4 +19,5 @@ public class CompanyEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String email;
+
 }
