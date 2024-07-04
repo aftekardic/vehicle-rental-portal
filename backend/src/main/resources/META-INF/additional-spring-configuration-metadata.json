@@ -54,6 +54,31 @@
       "name": "keycloak.admin-token-url",
       "type": "java.lang.String",
       "description": "A description for 'keycloak.admin-token-url'"
+    },
+    {
+      "name": "keycloak.company-role-id",
+      "type": "java.lang.String",
+      "description": "A description for 'keycloak.company-role-id'"
+    },
+    {
+      "name": "keycloak.company-role-name",
+      "type": "java.lang.String",
+      "description": "A description for 'keycloak.company-role-name'"
+    },
+    {
+      "name": "keycloak.realm-container-id",
+      "type": "java.lang.String",
+      "description": "A description for 'keycloak.realm-container-id'"
+    },
+    {
+      "name": "keycloak.user-role-id",
+      "type": "java.lang.String",
+      "description": "A description for 'keycloak.user-role-id'"
+    },
+    {
+      "name": "keycloak.user-role-name",
+      "type": "java.lang.String",
+      "description": "A description for 'keycloak.user-role-name'"
     }
   ]
 }

@@ -19,16 +19,36 @@ import EventIcon from "@mui/icons-material/Event";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
+import { userPermissionRoles } from "../services/permissionService";
+import api from "../services/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const Layout = () => {
-  const handleSignOut = () => {
-    // Implement sign out logic here
-    console.log("Signing out...");
+function Layout() {
+  const navigate = useNavigate();
+  const handleSignOut = async () => {
+    try {
+      const response = await api.post("/auth/logout", {
+        refreshToken: localStorage.getItem("refreshToken"),
+      });
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("userRoles");
+      localStorage.removeItem("userEmail");
+      const { data } = response;
+
+      toast.success(data, {
+        onClose: () => {
+          navigate(0);
+        },
+      });
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      {/* AppBar */}
       <AppBar
         position="fixed"
         sx={{
@@ -41,24 +61,25 @@ const Layout = () => {
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
             Car Rental Portal
           </Typography>
-          <Link
-            component={RouterLink}
-            to="/login"
-            sx={{
-              color: "inherit",
-              textDecoration: "none",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <IconButton color="inherit">
-              <LoginIcon />
-            </IconButton>
-          </Link>
+          {userPermissionRoles([]) && (
+            <Link
+              component={RouterLink}
+              to="/login"
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <IconButton color="inherit">
+                <LoginIcon />
+              </IconButton>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
 
-      {/* Drawer */}
       <Drawer variant="permanent" sx={{ width: 180, flexShrink: 0 }}>
         <Toolbar />
         <Box sx={{ flexGrow: 1 }}>
@@ -89,22 +110,23 @@ const Layout = () => {
             </ListItem>
           </List>
         </Box>
-        {/* Sign Out Button */}
-        <Box
-          sx={{
-            borderTop: "1px solid rgba(255, 255, 255, 0.12)",
-            display: "flex",
-            justifyContent: "center",
-            marginBottom: 2,
-          }}
-        >
-          <IconButton onClick={handleSignOut} sx={{ color: "#333" }}>
-            <LogoutIcon />
-          </IconButton>
-        </Box>
+
+        {localStorage.getItem("accessToken") !== null && (
+          <Box
+            sx={{
+              borderTop: "1px solid rgba(255, 255, 255, 0.12)",
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: 2,
+            }}
+          >
+            <IconButton onClick={handleSignOut} sx={{ color: "#333" }}>
+              <LogoutIcon />
+            </IconButton>
+          </Box>
+        )}
       </Drawer>
 
-      {/* Main Content */}
       <Box
         component="main"
         sx={{
@@ -118,7 +140,6 @@ const Layout = () => {
         <Outlet />
       </Box>
 
-      {/* Footer */}
       <Box
         component="footer"
         sx={{
@@ -136,6 +157,6 @@ const Layout = () => {
       </Box>
     </Box>
   );
-};
+}
 
 export default Layout;

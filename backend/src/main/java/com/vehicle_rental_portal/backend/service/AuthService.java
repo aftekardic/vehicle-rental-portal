@@ -71,6 +71,21 @@ public class AuthService {
         @Value("${keycloak.update-url}")
         private String kcUpdateUrl;
 
+        @Value("${keycloak.realm-container-id}")
+        private String kcRealmContainerId;
+
+        @Value("${keycloak.company-role-id}")
+        private String kcCompanyRoleId;
+
+        @Value("${keycloak.company-role-name}")
+        private String kcCompanyRoleName;
+
+        @Value("${keycloak.user-role-id}")
+        private String kcUserRoleId;
+
+        @Value("${keycloak.user-role-name}")
+        private String kcUserRoleName;
+
         private static final String GRANT_TYPE_PASSWORD = "password";
         private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
 
@@ -102,6 +117,7 @@ public class AuthService {
         public ResponseEntity<?> registerAsCompany(RegisterRequestAsCompanyDto registerRequest) {
                 String adminAccessToken = keycloakUtil.getAdminAccessToken(GRANT_TYPE_PASSWORD, restTemplate,
                                 kcAdminUrl);
+                System.out.println(adminAccessToken);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 headers.set("Authorization", "Bearer " + adminAccessToken);
@@ -130,10 +146,23 @@ public class AuthService {
                                                 new HttpEntity<>(dynamicJsonForPassword,
                                                                 headers),
                                                 Object.class);
+
+                                String dynamicJsonForRole = String.format(
+                                                "[{\"id\": \"%s\",\"name\": \"%s\",\"description\": \"\",\"composite\": false,\"clientRole\": false,\"containerId\": \"%s\"}]",
+                                                kcCompanyRoleId, kcCompanyRoleName, kcRealmContainerId);
+
+                                restTemplate.exchange(
+                                                kcUpdateUrl + "/" + newCompanyID + "/role-mappings/realm",
+                                                HttpMethod.POST,
+                                                new HttpEntity<>(dynamicJsonForRole,
+                                                                headers),
+                                                Object.class);
+
                         }
 
                         if (companyRepository.findByEmail(registerRequest.getEmail()) != null) {
-                                return ResponseEntity.status(HttpStatus.CONFLICT).body("Company already exist");
+                                return ResponseEntity.status(HttpStatus.CONFLICT)
+                                                .body("Company already exist on data.");
                         } else {
 
                                 CompanyDto newCompany = CompanyDto.builder().name(registerRequest.getName())
@@ -144,8 +173,8 @@ public class AuthService {
                         }
 
                 } catch (Exception e) {
-                        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
-                                        .body("An error occured when creating this company. Please try again later...");
+                        return ResponseEntity.status(HttpStatus.CONFLICT).body("Company already exist on system.");
+
                 }
 
                 return ResponseEntity.ok().body("Company created...");
@@ -182,10 +211,21 @@ public class AuthService {
                                                 new HttpEntity<>(dynamicJsonForPassword,
                                                                 headers),
                                                 Object.class);
+
+                                String dynamicJsonForRole = String.format(
+                                                "[{\"id\": \"%s\",\"name\": \"%s\",\"description\": \"\",\"composite\": false,\"clientRole\": false,\"containerId\": \"%s\"}]",
+                                                kcUserRoleId, kcUserRoleName, kcRealmContainerId);
+
+                                restTemplate.exchange(
+                                                kcUpdateUrl + "/" + newUserID + "/role-mappings/realm",
+                                                HttpMethod.POST,
+                                                new HttpEntity<>(dynamicJsonForRole,
+                                                                headers),
+                                                Object.class);
                         }
 
                         if (companyRepository.findByEmail(registerRequest.getEmail()) != null) {
-                                return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exist");
+                                return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exist on data.");
                         } else {
 
                                 UserDto newUser = UserDto.builder().name(registerRequest.getName())
@@ -196,8 +236,7 @@ public class AuthService {
                         }
 
                 } catch (Exception e) {
-                        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
-                                        .body("An error occured when creating this user. Please try again later...");
+                        return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exist on system.");
                 }
 
                 return ResponseEntity.ok().body("User created...");

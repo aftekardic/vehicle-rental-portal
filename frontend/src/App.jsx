@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import VehiclesPage from "./pages/VehiclesPage";
@@ -9,8 +9,16 @@ import UserRegistirationPage from "./pages/UserRegistirationPage";
 import CompanyRegistrationPage from "./pages/CompanyRegistrationPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import LoginPage from "./pages/LoginPage";
+import { checkTokenValidity } from "./services/authService";
 
 function App() {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkTokenValidity();
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />

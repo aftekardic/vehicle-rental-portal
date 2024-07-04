@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Grid } from "@mui/material";
+import api from "../services/api";
+import { toast } from "react-toastify";
 
 function UserRegistirationPage() {
-  const handleSubmit = (event) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission
-    console.log("User registered!");
+
+    const formData = {
+      name: firstName,
+      surname: lastName,
+      email: email,
+      password: password,
+    };
+
+    console.log(formData);
+    try {
+      const response = await api.post("/auth/register-user", formData);
+      toast.success(response.data, {
+        onClose: () => {
+          navigate("/login");
+        },
+      });
+    } catch (error) {
+      toast.error(error.response.data);
+    }
   };
 
   return (
@@ -21,6 +45,8 @@ function UserRegistirationPage() {
               label="First Name"
               variant="outlined"
               required
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -29,6 +55,8 @@ function UserRegistirationPage() {
               label="Last Name"
               variant="outlined"
               required
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -38,6 +66,8 @@ function UserRegistirationPage() {
               type="email"
               variant="outlined"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -47,6 +77,8 @@ function UserRegistirationPage() {
               type="password"
               variant="outlined"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>

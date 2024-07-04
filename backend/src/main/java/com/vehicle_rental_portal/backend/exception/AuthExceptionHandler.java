@@ -18,7 +18,8 @@ public class AuthExceptionHandler {
                 .status("UNAUTHORIZED")
                 .message("User is not found in the system!")
                 .build();
-        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+
     }
 
     @ExceptionHandler(AccessDeniedException.class)
@@ -27,15 +28,7 @@ public class AuthExceptionHandler {
                 .status("FORBIDDEN")
                 .message("You do not have a permission for this proccess.")
                 .build();
-        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-    }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<AuthResponseDto> handleRuntimeException(RuntimeException e) {
-        AuthResponseDto response = AuthResponseDto.builder()
-                .status("ERROR")
-                .message("Internal Server Error: " + e.getMessage())
-                .build();
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
