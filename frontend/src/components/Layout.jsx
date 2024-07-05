@@ -98,12 +98,14 @@ function Layout() {
                 <ListItemText primary="Vehicles" />
               </ListItem>
             )}
-            <ListItem button component={RouterLink} to="/reservations">
-              <ListItemIcon>
-                <EventIcon sx={{ color: "#333" }} />
-              </ListItemIcon>
-              <ListItemText primary="Reservation" />
-            </ListItem>
+            {userPermissionRoles(["USER", "TEST"]) && (
+              <ListItem button component={RouterLink} to="/reservations">
+                <ListItemIcon>
+                  <EventIcon sx={{ color: "#333" }} />
+                </ListItemIcon>
+                <ListItemText primary="Reservation" />
+              </ListItem>
+            )}
             <ListItem button component={RouterLink} to="/profile">
               <ListItemIcon>
                 <AccountCircleIcon sx={{ color: "#333" }} />

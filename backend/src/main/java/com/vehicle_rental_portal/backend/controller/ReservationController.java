@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -20,7 +21,7 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
-    @GetMapping("/reserved")
+    @GetMapping("/reserved/{userEmail}")
     public ResponseEntity<?> getReservedVehicle(@PathVariable String userEmail) {
         return reservationService.getReservedVehicle(userEmail);
     }
@@ -30,4 +31,8 @@ public class ReservationController {
         return reservationService.bookAvailableVehicle(reservationBookRequestDto);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteReservation(@PathVariable Long id) {
+        return reservationService.deleteReservedVehicle(id);
+    }
 }

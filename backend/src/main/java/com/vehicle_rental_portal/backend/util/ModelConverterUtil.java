@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.vehicle_rental_portal.backend.dto.CompanyDtos.CompanyDto;
 import com.vehicle_rental_portal.backend.dto.ReservationDtos.ReservationDto;
+import com.vehicle_rental_portal.backend.dto.ReservationDtos.ReservedDto;
 import com.vehicle_rental_portal.backend.dto.UserDtos.UserDto;
 import com.vehicle_rental_portal.backend.dto.VehicleDtos.VehicleDto;
 import com.vehicle_rental_portal.backend.dto.VehicleDtos.VehicleResponseDto;
@@ -151,5 +152,30 @@ public class ModelConverterUtil {
         dto.setEndDate(reservationEntity.getEndDate());
         dto.setStatus(reservationEntity.getStatus());
         return dto;
+    }
+
+    public ReservedDto reservationsEntityToDtos(ReservationEntity reservationEntity) {
+        if (reservationEntity == null) {
+            return null;
+        }
+        return ReservedDto.builder()
+                .id(reservationEntity.getId())
+                .userId(reservationEntity.getUser().getId())
+                .userName(reservationEntity.getUser().getName())
+                .userSurname(reservationEntity.getUser().getSurname())
+                .userEmail(reservationEntity.getUser().getEmail())
+                .vehicleId(reservationEntity.getVehicle().getId())
+                .vehicleType(reservationEntity.getVehicle().getType())
+                .vehicleDailyPrice(reservationEntity.getVehicle().getDailyPrice())
+                .vehicleAvailabilityDates(reservationEntity.getVehicle().getAvailabilityDates())
+                .vehicleAdditionalServices(reservationEntity.getVehicle().getAdditionalServices())
+                .companyId(reservationEntity.getVehicle().getCompany().getId())
+                .companyName(reservationEntity.getVehicle().getCompany().getName())
+                .companyCity(reservationEntity.getVehicle().getCompany().getCity())
+                .companyEmail(reservationEntity.getVehicle().getCompany().getEmail())
+                .startDate(reservationEntity.getStartDate())
+                .endDate(reservationEntity.getEndDate())
+                .status(reservationEntity.getStatus())
+                .build();
     }
 }

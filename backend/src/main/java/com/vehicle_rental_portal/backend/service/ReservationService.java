@@ -1,11 +1,16 @@
 package com.vehicle_rental_portal.backend.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.vehicle_rental_portal.backend.dto.ReservationDtos.ReservationBookRequestDto;
 import com.vehicle_rental_portal.backend.dto.ReservationDtos.ReservationDto;
+import com.vehicle_rental_portal.backend.dto.ReservationDtos.ReservedDto;
+import com.vehicle_rental_portal.backend.entity.ReservationEntity;
 import com.vehicle_rental_portal.backend.entity.UserEntity;
 import com.vehicle_rental_portal.backend.entity.VehicleEntity;
 import com.vehicle_rental_portal.backend.repository.ReservationRepository;
@@ -23,6 +28,7 @@ public class ReservationService {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
     @Autowired
     private ModelConverterUtil modelConverter;
 
@@ -39,12 +45,19 @@ public class ReservationService {
         return ResponseEntity.ok().body(vehicle.getCompany().getName() + "'s vehicle was reserved.");
     }
 
-    public ResponseEntity<?> deleteReservedVehicle() {
-        return null;
+    public ResponseEntity<?> deleteReservedVehicle(Long id) {
+        reservationRepository.deleteById(id);
+        return ResponseEntity.ok().body("Reservation was cancelled.");
     }
 
     public ResponseEntity<?> getReservedVehicle(String userEmail) {
-        return null;
+        UserEntity user = userRepository.findByEmail(userEmail);
+        List<ReservationEntity> reservations = reservationRepository.findByUserId(user.getId());
+        List<ReservedDto> reservedDtos = reservations.stream()
+                .map(modelConverter::reservationsEntityToDtos)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(reservedDtos);
     }
 
 }
