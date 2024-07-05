@@ -28,9 +28,7 @@ function Layout() {
   const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
-      const response = await api.post("/auth/logout", {
-        refreshToken: localStorage.getItem("refreshToken"),
-      });
+      const response = await api.post("/auth/logout");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("userRoles");
@@ -61,7 +59,7 @@ function Layout() {
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
             Car Rental Portal
           </Typography>
-          {userPermissionRoles([]) && (
+          {localStorage.getItem("accessToken") === null && (
             <Link
               component={RouterLink}
               to="/login"

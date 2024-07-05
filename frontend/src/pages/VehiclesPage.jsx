@@ -37,7 +37,7 @@ function VehiclesPage() {
   useEffect(() => {
     const getAllVehicles = async () => {
       if (
-        localStorage.getItem("userRoles").includes("COMPANY") &&
+        localStorage.getItem("userRoles")?.includes("COMPANY") &&
         localStorage.getItem("accessToken")
       ) {
         const response = await api.get(
@@ -76,52 +76,63 @@ function VehiclesPage() {
   };
 
   const handleAddVehicle = async () => {
-    const { availabilityStart, availabilityEnd } = setMinMaxDates(
-      newVehicle.availabilityDates
-    );
+    if (localStorage.getItem("accessToken")) {
+      const { availabilityStart, availabilityEnd } = setMinMaxDates(
+        newVehicle.availabilityDates
+      );
 
-    const vehicleToAdd = {
-      ...newVehicle,
-      availabilityStart,
-      availabilityEnd,
-    };
+      const vehicleToAdd = {
+        ...newVehicle,
+        availabilityStart,
+        availabilityEnd,
+      };
 
-    setVehicles([...vehicles, { id: vehicles.length + 1, ...vehicleToAdd }]);
-    setNewVehicle({
-      companyEmail: localStorage.getItem("userEmail"),
-      type: "",
-      dailyPrice: "",
-      availabilityStart: null,
-      availabilityEnd: null,
-      additionalServices: [],
-      availabilityDates: [],
-    });
+      setVehicles([...vehicles, { id: vehicles.length + 1, ...vehicleToAdd }]);
+      setNewVehicle({
+        companyEmail: localStorage.getItem("userEmail"),
+        type: "",
+        dailyPrice: "",
+        availabilityStart: null,
+        availabilityEnd: null,
+        additionalServices: [],
+        availabilityDates: [],
+      });
 
-    const response = await api.post("/vehicle/add", vehicleToAdd);
-    toast.success(response.data.message);
+      const response = await api.post("/vehicle/add", vehicleToAdd);
+      toast.success(response.data.message);
+    }
   };
 
   const handleDeleteVehicle = async (id) => {
-    const response = await api.delete(`/vehicle/delete/${id}`);
-    setVehicles(vehicles.filter((vehicle) => vehicle.id !== id));
-    toast.success(response.data);
+    if (localStorage.getItem("accessToken")) {
+      const response = await api.delete(`/vehicle/delete/${id}`);
+      setVehicles(vehicles.filter((vehicle) => vehicle.id !== id));
+      toast.success(response.data);
+    }
   };
 
   const handleAddAdditionalService = () => {
-    setNewVehicle({
-      ...newVehicle,
-      additionalServices: [...newVehicle.additionalServices, additionalService],
-    });
-    setAdditionalService("");
+    if (localStorage.getItem("accessToken")) {
+      setNewVehicle({
+        ...newVehicle,
+        additionalServices: [
+          ...newVehicle.additionalServices,
+          additionalService,
+        ],
+      });
+      setAdditionalService("");
+    }
   };
 
   const handleDeleteAdditionalService = (service) => {
-    setNewVehicle({
-      ...newVehicle,
-      additionalServices: newVehicle.additionalServices.filter(
-        (s) => s !== service
-      ),
-    });
+    if (localStorage.getItem("accessToken")) {
+      setNewVehicle({
+        ...newVehicle,
+        additionalServices: newVehicle.additionalServices.filter(
+          (s) => s !== service
+        ),
+      });
+    }
   };
 
   return (

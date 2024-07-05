@@ -39,6 +39,9 @@ public class WebSecurityConfiguration {
                         .antMatchers("/auth/**").permitAll()
                         .antMatchers("/vehicle/**").permitAll()
                         .antMatchers("/reservation/**").permitAll()
+                        .antMatchers("/user/**").permitAll()
+                        .antMatchers("/company/**").permitAll()
+                        .antMatchers("/kc/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(

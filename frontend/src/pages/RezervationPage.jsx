@@ -21,7 +21,7 @@ function RezervationPage() {
   useEffect(() => {
     const getReservations = async () => {
       if (
-        localStorage.getItem("userRoles").includes("USER") &&
+        localStorage.getItem("userRoles")?.includes("USER") &&
         localStorage.getItem("accessToken")
       ) {
         try {

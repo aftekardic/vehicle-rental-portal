@@ -166,7 +166,7 @@ function HomePage() {
           </Grid>
         )}
 
-        {userPermissionRoles(["COMPANY", "USER", "TEST"]) && (
+        {userPermissionRoles(["USER", "TEST"]) && (
           <Grid item xs={12} sm={6}>
             <Button
               component={RouterLink}
@@ -179,40 +179,42 @@ function HomePage() {
           </Grid>
         )}
       </Grid>
-      <Box sx={{ my: 3 }}>
-        <Typography variant="h5" gutterBottom>
-          Available Vehicles
-        </Typography>
-        <Grid container spacing={3}>
-          {vehicles.map((vehicle) => (
-            <Grid item xs={12} sm={6} md={4} key={vehicle.id}>
-              <Box border={1} p={2} borderRadius={4}>
-                <Typography variant="subtitle1">
-                  {vehicle.companyName}
-                </Typography>
-                <Typography variant="body2">{vehicle.type}</Typography>
-                <Typography variant="body2">
-                  Daily Price: {vehicle.dailyPrice}
-                </Typography>
-                <Typography variant="body2">
-                  Availability Dates: {vehicle.availabilityDates.join(", ")}
-                </Typography>
-                <Typography variant="body2">
-                  Additional Services: {vehicle.additionalServices.join(", ")}
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleBookNow(vehicle.id)}
-                  sx={{ mt: 2 }}
-                >
-                  Book Now
-                </Button>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      {userPermissionRoles(["USER", "TEST"]) && (
+        <Box sx={{ my: 3 }}>
+          <Typography variant="h5" gutterBottom>
+            Available Vehicles
+          </Typography>
+          <Grid container spacing={3}>
+            {vehicles.map((vehicle) => (
+              <Grid item xs={12} sm={6} md={4} key={vehicle.id}>
+                <Box border={1} p={2} borderRadius={4}>
+                  <Typography variant="subtitle1">
+                    {vehicle.companyName}
+                  </Typography>
+                  <Typography variant="body2">{vehicle.type}</Typography>
+                  <Typography variant="body2">
+                    Daily Price: {vehicle.dailyPrice}
+                  </Typography>
+                  <Typography variant="body2">
+                    Availability Dates: {vehicle.availabilityDates.join(", ")}
+                  </Typography>
+                  <Typography variant="body2">
+                    Additional Services: {vehicle.additionalServices.join(", ")}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleBookNow(vehicle.id)}
+                    sx={{ mt: 2 }}
+                  >
+                    Book Now
+                  </Button>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      )}
     </Box>
   );
 }
