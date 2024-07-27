@@ -155,7 +155,7 @@ This project includes security configurations to ensure proper authentication an
    - Constructs appropriate GrantedAuthority objects based on the keycloak.client-id property.
 
 4. **Web Security Configuration:**
-   - The WebSecurityConfiguration class is a Spring configuration that manages security within the application. It enables web security with annotations and defines access rules using HttpSecurity. The configuration disables CSRF protection for stateless APIs and specifies roles (hasAnyRole) required to access endpoints like /api/v1/cv/**, /api/v1/user/**, and /api/v1/chat/**.
+   - The WebSecurityConfiguration class is a Spring configuration that manages security within the application. It enables web security with annotations and defines access rules using HttpSecurity. The configuration disables CSRF protection for stateless APIs and specifies roles (hasAnyRole) required to access endpoints like /api/v1/**, /api/v1/user/**, and /api/v1/reservation/**.
 
    - Endpoints under /auth/** are exempt from authentication requirements (permitAll). Error handling for authentication issues (authenticationEntryPoint) and access denial (accessDeniedHandler) is also configured.
 
@@ -169,6 +169,6 @@ This project includes security configurations to ensure proper authentication an
 
 ## Conclusion
 
-In essence, the CV Project exemplifies a secure and user-centric application environment where advanced functionalities are supported by robust security measures. By leveraging Keycloak for authentication, implementing precise access controls, and integrating error handling mechanisms, the project ensures both user data protection and operational efficiency. This comprehensive approach not only enhances user trust but also underscores the project's commitment to delivering a secure and reliable service.
+In essence, the Vehicle Rental Portal exemplifies a secure and user-centric application environment where advanced functionalities are supported by robust security measures. By leveraging Keycloak for authentication, implementing precise access controls, and integrating error handling mechanisms, the project ensures both user data protection and operational efficiency. This comprehensive approach not only enhances user trust but also underscores the project's commitment to delivering a secure and reliable service.
 
 If you need further details or adjustments to the conclusion, feel free to let me know!
