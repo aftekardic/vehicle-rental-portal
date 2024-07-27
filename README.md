@@ -1,4 +1,4 @@
-<img width="842" alt="image" src="https://github.com/user-attachments/assets/162a4ee0-949d-4357-a3c7-be131a5dc097"># Vehicle Rental Portal
+# Vehicle Rental Portal
 
 The portal includes many features e.g. registration, secure login, rent a vehicle, manage vehicle, view ...
 
@@ -15,11 +15,12 @@ The portal includes many features e.g. registration, secure login, rent a vehicl
    - **Login:** Registered customers can log in by entering their credentials. Keycloak is activated on login, generating a temporary token unique to the user. Until expiration, the token is periodically renewed by refresh-token.
      <img width="498" alt="image" src="https://github.com/user-attachments/assets/21526fe5-012f-4b10-bb90-d16eaf5b10ec">
 
-2. **Rent a Vehicle**
+2. **Vehicle Procces**
    - **Search vehicle:** Users can search and list vehicles.
      <img width="842" alt="image" src="https://github.com/user-attachments/assets/69a21909-71b8-47da-b175-21dc573d6494">
 
    - **Display Reservations:** Users can display their reservations.
+     
    - **Update Informations:** Users and companies can update their informations.
      <img width="842" alt="image" src="https://github.com/user-attachments/assets/2ba9c142-ff28-42e5-a3e5-4a689c3a48b8">
      <img width="842" alt="image" src="https://github.com/user-attachments/assets/bf0bcf23-a7a3-4384-a68b-67f213a02f25">
@@ -27,12 +28,10 @@ The portal includes many features e.g. registration, secure login, rent a vehicl
    - **Add Vehicle:** Compaines can add and delete vehicle.
      <img width="842" alt="image" src="https://github.com/user-attachments/assets/a7310514-120f-4725-b9b2-9a314d92577a">
 
-3. **Manage Vehicle**
-   -  
-4. **Validation and Error Handling:**
+3. **Validation and Error Handling:**
    - The system ensures that withdrawals are completed only if the client has sufficient funds. Insufficient funds will result in the transaction being rejected and an error message. Completed transactions are also returned to the user as an information message. Like these...
-     <img width="397" alt="image" src="https://github.com/user-attachments/assets/24a5c048-2013-4472-bf41-5f334b423460">
-     <img width="397" alt="image" src="https://github.com/user-attachments/assets/f64f1ace-e4aa-42fa-8b90-d78b152f5f27">
+     - <img width="397" alt="image" src="https://github.com/user-attachments/assets/24a5c048-2013-4472-bf41-5f334b423460">
+     - <img width="397" alt="image" src="https://github.com/user-attachments/assets/f64f1ace-e4aa-42fa-8b90-d78b152f5f27">
   
 ### Prerequisites
 
